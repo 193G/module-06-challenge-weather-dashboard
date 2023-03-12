@@ -11,13 +11,15 @@ function currentWeather(city){
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
         .then((response) => response.json())
         .then((data) => {
+            $(".results-panel").addClass("visible");
             // console.log(data)
             $("#city-name").text(data.name)
             $("#currentIcon").attr("src",`http://openweathermap.org/img/w/${data.weather[0].icon}.png`)
             $("#temperature").text(data.main.temp)
             $("#humidity").text(data.main.humidity)
-            $("#wind-speed").text(data.wind.speed)
             fiveDayForecast(city)
+            $("#city-list").append('<button type="button" class="list-group-item list-group-item-light list-group-item-action city-name">' + cityName);
+                localStorage.setItem(cityName);
         });
 }
 
