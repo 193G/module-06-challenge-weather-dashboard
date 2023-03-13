@@ -18,8 +18,8 @@ function currentWeather(city){
             $("#temperature").text(data.main.temp)
             $("#humidity").text(data.main.humidity)
             fiveDayForecast(city)
-            $("#city-list").append('<button type="button" class="list-group-item list-group-item-light list-group-item-action city-name">' + cityName);
-                localStorage.setItem(cityName);
+            $("#city-list").append('<button type="button" class="list-group-item list-group-item-light list-group-item-action city-name">' + city);
+                localStorage.setItem(city, city);
         });
 }
 
@@ -37,3 +37,4 @@ function fiveDayForecast(city){
             }
         });
 }
+
