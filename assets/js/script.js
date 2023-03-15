@@ -1,25 +1,35 @@
-var apiKey ="ccdd9b24c11281c38d5599dd95574989"
-var cityInput =$("#cityName")
+// saving API key from OPen Weather
+var apiKey = "ccdd9b24c11281c38d5599dd95574989"
+var cityInput = $("#cityName")
+
+
+
 $("form").submit(function(e){
     e.preventDefault()
-    var city =cityInput.val()
+    console.log(e)
+    var city = cityInput.val()
     console.log (city)
     currentWeather(city)
+    $("#city-list").append(`<button type="button" class="list-group-item list-group-item-light list-group-item-action city-name" onClick="currentWeather('${city}')">` + city);
 })
+
 
 function currentWeather(city){
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
-        .then((response) => response.json())
+        .then((response) => {
+            // console.log(response)
+            return response.json()
+        })
         .then((data) => {
             $(".results-panel").addClass("visible");
-            // console.log(data)
+            console.log(data)
             $("#city-name").text(data.name)
             $("#currentIcon").attr("src",`http://openweathermap.org/img/w/${data.weather[0].icon}.png`)
             $("#temperature").text(data.main.temp)
             $("#humidity").text(data.main.humidity)
             fiveDayForecast(city)
-            $("#city-list").append('<button type="button" class="list-group-item list-group-item-light list-group-item-action city-name">' + city);
-                localStorage.setItem(city, city);
+
+            localStorage.setItem(city, city);
         });
 }
 
